@@ -15,8 +15,22 @@ router.get("/", (req, res) => {
   }
 
   // Define unit and value individually
+  let value;
+  let raw = array.slice(0, index[0]).join("");
   let unit = array.slice(index[0]).join("");
-  let value = array.slice(0, index[0]).join("");
+
+  let fraction = /\//;
+
+  if (raw.match(fraction) === null) {
+    value = raw;
+  } else {
+    console.log("fraction");
+    let fract = raw.split("/");
+    console.log(fract);
+    value = Number(fract[0]) / Number(fract[1]);
+  }
+
+  console.log(value, unit);
 
   const measures = {
     // [relative unit, name, converts to]
@@ -46,10 +60,11 @@ router.get("/", (req, res) => {
     returnUnit: measures[unit][2],
     string: msg,
   };
-
   console.log(output);
-
-  res.send(output);
+  res.render("../views/pug/index", {
+    msg: output.string,
+    show: output,
+  });
 });
 
 module.exports = router;

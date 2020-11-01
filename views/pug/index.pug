@@ -1,0 +1,37 @@
+html
+  head
+    title Metric-Imperial Converter
+    meta(name='description', content='Home page')
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/public/style.css')
+  body
+    div#main
+        h1.border.center Metric/Imp Converter
+        div#indent
+            h3 Example usage:
+            
+            span /api/convert?input=4gal
+            br
+            span /api/convert?input=1/2km
+            br
+            span /api/convert?input=5.4/3lbs
+            br
+            span /api/convert?input=kg
+            
+            h3 Example return:
+            code {"initNum":3.1,"initUnit":"mi","returnNum":4.98895,"returnUnit":"km","string":"3.1 miles converts to 4.98895 kilometers"}
+            br
+            hr
+            br
+            h2 Front-End:
+            form(action="/api/convert/")
+                input(type="text", name="input", placeholder="3.1mi")
+                button(type="submit") Convert!
+            span #{msg}
+            br
+            br
+            code #{JSON.stringify(show)}
+            
+    
