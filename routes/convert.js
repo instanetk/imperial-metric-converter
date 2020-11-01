@@ -13,7 +13,6 @@ router.get("/", (req, res) => {
       index.push(array.indexOf(char));
     }
   }
-
   // Define unit and value individually
   let value;
   let raw = array.slice(0, index[0]).join("");
@@ -27,7 +26,7 @@ router.get("/", (req, res) => {
     console.log("fraction");
     let fract = raw.split("/");
     console.log(fract);
-    value = Number(fract[0]) / Number(fract[1]);
+    value = Number(fract[0]) / Number(fract[1]).toPrecision(5);
   }
 
   console.log(value, unit);
@@ -39,8 +38,9 @@ router.get("/", (req, res) => {
     kg: [2.20462, "kilograms", "lbs", "pounds"],
     lbs: [0.45359, "pounds", "kg", "kilograms"],
     gal: [3.78541, "gallons", "l", "liters"],
-    l: [0.26417, "liters", "gal", "gallons"],
+    l: [0.264172, "liters", "gal", "gallons"],
   };
+  console.log(Number(measures[unit][0] * value).toFixed(5), 10 * 0.26417);
 
   const msg =
     value +
