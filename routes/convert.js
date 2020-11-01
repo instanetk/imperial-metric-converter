@@ -3,6 +3,13 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   const input = req.query.input;
+
+  if (!input)
+    res.render("../views/pug/index", {
+      msg: "Error -",
+      show: { error: "invalid number and unit" },
+    });
+
   const array = input.split("");
   let index = [];
 
@@ -53,9 +60,9 @@ router.get("/", (req, res) => {
     measures[unit][3];
 
   const output = {
-    initNum: value,
+    initNum: Number(value),
     initUnit: unit,
-    returnNum: convert,
+    returnNum: Number(convert),
     returnUnit: measures[unit][2],
     string: msg,
   };
