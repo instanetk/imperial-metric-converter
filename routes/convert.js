@@ -29,8 +29,6 @@ router.get("/", (req, res) => {
     value = Number(fract[0]) / Number(fract[1]).toPrecision(5);
   }
 
-  console.log(value, unit);
-
   const measures = {
     // [relative unit, name, converts to]
     km: [0.62137, "kilometers", "mi", "miles"],
@@ -40,7 +38,8 @@ router.get("/", (req, res) => {
     gal: [3.78541, "gallons", "l", "liters"],
     l: [0.264172, "liters", "gal", "gallons"],
   };
-  console.log(Number(measures[unit][0] * value).toFixed(5), 10 * 0.26417);
+
+  const convert = Number(measures[unit][0] * value).toPrecision(6);
 
   const msg =
     value +
@@ -49,14 +48,14 @@ router.get("/", (req, res) => {
     " " +
     "converts to" +
     " " +
-    measures[unit][0] * value +
+    convert +
     " " +
     measures[unit][3];
 
   const output = {
     initNum: value,
     initUnit: unit,
-    returnNum: measures[unit][0] * value,
+    returnNum: convert,
     returnUnit: measures[unit][2],
     string: msg,
   };
