@@ -22,16 +22,16 @@ router.get("/", (req, res) => {
   }
   // Define unit and value individually
   let value;
-  let raw = array.slice(0, index[0]).join("");
+  let whole = array.slice(0, index[0]).join("");
   let unit = array.slice(index[0]).join("");
 
+  // If number is whole or a fraction
   let fraction = /\//;
-
-  if (raw.match(fraction) === null) {
-    value = raw;
+  if (whole.match(fraction) === null) {
+    value = whole;
   } else {
     console.log("fraction");
-    let fract = raw.split("/");
+    let fract = whole.split("/");
     console.log(fract);
     value = Number(fract[0]) / Number(fract[1]).toPrecision(5);
   }
@@ -46,18 +46,17 @@ router.get("/", (req, res) => {
     l: [0.264172, "liters", "gal", "gallons"],
   };
 
+  // handle invalid units
+  let units = Object.keys(measures);
+  if (units.indexOf(unit) === -1)
+    res.render("../views/pug/index", {
+      msg: "Error - " + input,
+      show: { error: "invalid unit" },
+    });
+
   const convert = Number(measures[unit][0] * value).toPrecision(6);
 
-  const msg =
-    value +
-    " " +
-    measures[unit][1] +
-    " " +
-    "converts to" +
-    " " +
-    convert +
-    " " +
-    measures[unit][3];
+  const msg = `${value} ${measures[unit][1]} converts to ${convert} ${measures[unit][3]}`;
 
   const output = {
     initNum: Number(value),
@@ -66,7 +65,9 @@ router.get("/", (req, res) => {
     returnUnit: measures[unit][2],
     string: msg,
   };
+
   console.log(output);
+
   res.render("../views/pug/index", {
     msg: output.string,
     show: output,
