@@ -48,11 +48,13 @@ router.get("/", (req, res) => {
 
   // handle invalid units
   let units = Object.keys(measures);
-  if (units.indexOf(unit) === -1)
+  if (units.indexOf(unit) === -1) {
     res.render("../views/pug/index", {
       msg: "Error - " + input,
-      show: { error: "invalid unit" },
+      show: { initUnit: "invalid unit" },
     });
+    return;
+  }
 
   const convert = Number(measures[unit][0] * value).toPrecision(6);
 
