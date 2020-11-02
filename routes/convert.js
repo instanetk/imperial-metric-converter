@@ -43,7 +43,7 @@ router.get("/", (req, res) => {
     km: [0.62137, "kilometers", "mi", "miles"],
     mi: [1.60934, "miles", "km", "kilometers"],
     kg: [2.20462, "kilograms", "lbs", "pounds"],
-    lbs: [0.45359, "pounds", "kg", "kilograms"],
+    lbs: [0.453592, "pounds", "kg", "kilograms"],
     gal: [3.78541, "gallons", "l", "liters"],
     l: [0.264172, "liters", "gal", "gallons"],
   };
