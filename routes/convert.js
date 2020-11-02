@@ -25,10 +25,12 @@ router.get("/", (req, res) => {
   let whole = array.slice(0, index[0]).join("");
   let unit = array.slice(index[0]).join("");
 
+  console.log(value, whole);
+
   // If number is whole or a fraction
   let fraction = /\//;
   if (whole.match(fraction) === null) {
-    value = whole;
+    value = whole || 1;
   } else {
     console.log("fraction");
     let fract = whole.split("/");
