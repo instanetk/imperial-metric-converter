@@ -35,14 +35,14 @@ router.get("/", (req, res) => {
     console.log("fraction");
     let fract = whole.split("/");
     console.log(fract);
-    value = Number(fract[0]) / Number(fract[1]).toPrecision(5);
+    value = Number(fract[0]) / Number(fract[1]);
   }
 
   const measures = {
     // [relative unit, name, converts to]
     km: [0.62137, "kilometers", "mi", "miles"],
     mi: [1.60934, "miles", "km", "kilometers"],
-    kg: [2.20462, "kilograms", "lbs", "pounds"],
+    kg: [2.204624, "kilograms", "lbs", "pounds"],
     lbs: [0.453592, "pounds", "kg", "kilograms"],
     gal: [3.78541, "gallons", "l", "liters"],
     l: [0.264172, "liters", "gal", "gallons"],
@@ -58,7 +58,7 @@ router.get("/", (req, res) => {
     return;
   }
 
-  const convert = Number(measures[unit][0] * value).toPrecision(6);
+  const convert = parseFloat(Number(measures[unit][0] * value).toFixed(5));
 
   const msg = `${value} ${measures[unit][1]} converts to ${convert} ${measures[unit][3]}`;
 
